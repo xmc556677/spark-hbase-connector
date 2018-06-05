@@ -58,6 +58,10 @@ trait FieldWriterConversions extends Serializable {
     override def mapColumn(data: String): Option[Array[Byte]] = Some(Bytes.toBytes(data))
   }
 
+  implicit def bytearrayWriter: FieldWriter[Array[Byte]] = new SingleColumnFieldWriter[Array[Byte]] {
+    override def mapColumn(data: Array[Byte]): Option[Array[Byte]] = Some(data)
+  }
+
   // Options
 
   implicit def optionWriter[T](implicit c: FieldWriter[T]): FieldWriter[Option[T]] = new FieldWriter[Option[T]] {

@@ -90,6 +90,10 @@ trait FieldReaderConversions extends Serializable {
     def columnMap(cols: Array[Byte]): String = Bytes.toString(cols)
   }
 
+  implicit def bytearrayReader: FieldReader[Array[Byte]] = new SingleColumnConcreteFieldReader[Array[Byte]] {
+    override def columnMap(cols: Array[Byte]): Array[Byte] = cols
+  }
+
   // Options
 
   implicit def optionReader[T](implicit c: FieldReader[T]): FieldReader[Option[T]] = new FieldReader[Option[T]] {
